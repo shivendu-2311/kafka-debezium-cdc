@@ -49,3 +49,16 @@ services:
       CONNECT_INTERNAL_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
       CONNECT_INTERNAL_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
       CONNECT_PLUGIN_PATH: /usr/share/java,/usr/share/confluent-hub-components
+  postgres:
+    image: postgres:15
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: cdc_user
+      POSTGRES_PASSWORD: cdc_pass
+      POSTGRES_DB: cdc_db
+    volumes:
+      - ./../postgres/init:/docker-entrypoint-initdb.d
+      - ./../postgres/config/postgresql.conf:/etc/postgresql/postgresql.conf
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
