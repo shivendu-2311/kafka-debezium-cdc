@@ -1,0 +1,15 @@
+{
+  "name": "file-sink-connector",
+  "config": {
+    "connector.class": "org.apache.kafka.connect.file.FileStreamSinkConnector",
+    "tasks.max": "1",
+
+    "topics": "cdc.public.users,cdc.public.orders",
+    "file": "/tmp/cdc-output.txt",
+
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter.schemas.enable": "false"
+  }
+}

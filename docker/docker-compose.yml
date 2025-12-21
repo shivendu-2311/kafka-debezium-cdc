@@ -51,6 +51,9 @@ services:
       POSTGRES_PASSWORD: cdc_pass
       POSTGRES_DB: cdc_db
     volumes:
-      - ./../postgres/init:/docker-entrypoint-initdb.d
+      - postgres-data:/var/lib/postgresql/data
+      - ./../postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./../postgres/config/postgresql.conf:/etc/postgresql/postgresql.conf
     command: postgres -c config_file=/etc/postgresql/postgresql.conf
+volumes:
+      postgres-data:

@@ -1,0 +1,32 @@
+{
+  "name": "jdbc-sink-orders",
+  "config": {
+    "connector.class": "io.debezium.connector.jdbc.JdbcSinkConnector",
+    "tasks.max": "1",
+
+    "topics": "cdc_v2.public.orders",
+
+    "connection.url": "jdbc:postgresql://postgres:5432/cdc_db",
+    "connection.username": "cdc_user",
+    "connection.password": "cdc_pass",
+
+    "insert.mode": "upsert",
+    "primary.key.mode": "record_key",
+    "primary.key.fields": "id",
+
+    "table.name.format": "orders_sink",
+
+    "auto.create": "false",
+    "auto.evolve": "false",
+
+    "transforms": "unwrap",
+    "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+    "transforms.unwrap.drop.tombstones": "true",
+    "transforms.unwrap.delete.handling.mode": "drop",
+
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "true",
+    "value.converter.schemas.enable": "true"
+  }
+}
