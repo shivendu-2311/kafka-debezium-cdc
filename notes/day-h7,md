@@ -1,0 +1,14 @@
+Schema validation happens before record processing
+DLQ is NOT universal error handling
+Connector RUNNING ≠ pipeline healthy
+
+“The JDBC Sink appeared to work with record_key initially because inserts never exercised UPSERT logic. Once updates flowed, the sink required a primary key, but the Kafka key was empty since Debezium keeps the PK in the value. Switching to record_value allowed the sink to correctly resolve the primary key and perform UPSERTs.”
+
+🧠 One-line rule to remember
+
+Always add columns to sink first or immediately after source, and never rely on auto.evolve in production
+
+Adding columns requires coordination; dropping columns is safe but leaves cleanup work in the sink.
+
+
+Debezium produces change events, but the sink connector defines how those changes are interpreted, applied, filtered, or rejected.

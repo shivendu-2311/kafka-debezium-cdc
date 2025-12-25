@@ -11,7 +11,7 @@
     "connection.password": "cdc_pass",
 
     "insert.mode": "upsert",
-    "primary.key.mode": "record_key",
+    "primary.key.mode": "record_value",
     "primary.key.fields": "id",
 
     "table.name.format": "orders_sink",
@@ -23,6 +23,11 @@
     "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
     "transforms.unwrap.drop.tombstones": "true",
     "transforms.unwrap.delete.handling.mode": "drop",
+
+    "errors.tolerance": "all",
+    "errors.deadletterqueue.topic.name": "orders_sink_dlq",
+    "errors.log.enable": "true",
+    "errors.log.include.messages": "true",
 
     "key.converter": "org.apache.kafka.connect.json.JsonConverter",
     "value.converter": "org.apache.kafka.connect.json.JsonConverter",
